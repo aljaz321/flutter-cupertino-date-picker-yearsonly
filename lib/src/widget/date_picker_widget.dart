@@ -87,15 +87,9 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
     // create scroll controller
     _yearScrollCtrl =
         FixedExtentScrollController(initialItem: _currYear - _yearRange.first);
-    _monthScrollCtrl = FixedExtentScrollController(
-        initialItem: _currMonth - _monthRange.first);
-    _dayScrollCtrl =
-        FixedExtentScrollController(initialItem: _currDay - _dayRange.first);
 
     _scrollCtrlMap = {
       'y': _yearScrollCtrl,
-      'M': _monthScrollCtrl,
-      'd': _dayScrollCtrl
     };
     _valueRangeMap = {'y': _yearRange, 'M': _monthRange, 'd': _dayRange};
   }
@@ -301,26 +295,8 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
       _valueRangeMap['d'] = dayRange;
     });
 
-    if (monthRangeChanged) {
-      // CupertinoPicker refresh data not working (https://github.com/flutter/flutter/issues/22999)
-      int currMonth = _currMonth;
-      _monthScrollCtrl.jumpToItem(monthRange.last - monthRange.first);
-      if (currMonth < monthRange.last) {
-        _monthScrollCtrl.jumpToItem(currMonth - monthRange.first);
-      }
-    }
 
-    if (dayRangeChanged) {
-      // CupertinoPicker refresh data not working (https://github.com/flutter/flutter/issues/22999)
-      int currDay = _currDay;
-      _dayScrollCtrl.jumpToItem(dayRange.last - dayRange.first);
-      if (currDay < dayRange.last) {
-        _dayScrollCtrl.jumpToItem(currDay - dayRange.first);
-      }
-    }
 
-    _isChangeDateRange = false;
-  }
 
   /// calculate the count of day in current month
   int _calcDayCountOfMonth() {
